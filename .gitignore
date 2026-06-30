@@ -1,6 +1,46 @@
+# Python cache
 __pycache__/
-.env
-*.pyc
-.venv/
+*.py[cod]
+*$py.class
+
+# Virtual environments
 venv/
+env/
+.venv/
+.env/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large data files
+data/*.pdf
+data/*.csv
+
+# Vector database
+qdrant_storage/
+*.db
+*.sqlite3
+
+# Environment variables
+.env.local
+.env.*
+
+# Local models
+*.gguf
+models/

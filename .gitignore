@@ -44,3 +44,5 @@ qdrant_storage/
 # Local models
 *.gguf
 models/
+
+data/eval_dataset.json

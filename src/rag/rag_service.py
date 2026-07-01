@@ -10,7 +10,8 @@ def build_rag_chain(retriever):
 
     return RetrievalQA.from_chain_type(
         llm=llm,
-        retriever=retriever
+        retriever=retriever,
+        return_source_documents=True
     )
 
 
@@ -20,4 +21,12 @@ def rag_query(qa_chain, question):
         {"query": question}
     )
 
-    return result["result"]
+    contexts = [
+        doc.page_content
+        for doc in result["source_documents"]
+    ]
+
+    return {
+        "answer": result["result"],
+        "contexts": contexts
+    }

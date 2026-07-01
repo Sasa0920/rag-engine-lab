@@ -1,250 +1,182 @@
 [
-  {
-    "question": "What is machine learning?",
-    "answer": "Machine learning is a field of AI where systems learn from data instead of being explicitly programmed.",
-    "contexts": [
-      "Machine learning is a subset of artificial intelligence.",
-      "It allows systems to learn patterns from data."
-    ]
-  },
-  {
-    "question": "What is a vector database?",
-    "answer": "A vector database stores embeddings and allows similarity search.",
-    "contexts": [
-      "Vector databases store embeddings as high-dimensional vectors.",
-      "They are used for similarity search in AI systems."
-    ]
-  },
-  {
-    "question": "What is RAG?",
-    "answer": "RAG stands for Retrieval Augmented Generation, combining retrieval and LLM generation.",
-    "contexts": [
-      "RAG improves LLMs by adding external knowledge retrieval.",
-      "It retrieves documents before generating an answer."
-    ]
-  },
-  {
-    "question": "What is cosine similarity?",
-    "answer": "Cosine similarity measures how similar two vectors are based on angle.",
-    "contexts": [
-      "It is used in vector search systems.",
-      "It compares direction between embeddings."
-    ]
-  },
-  {
-    "question": "What is an embedding?",
-    "answer": "An embedding is a numeric representation of text.",
-    "contexts": [
-      "Embeddings convert text into vectors.",
-      "They capture semantic meaning of words."
-    ]
-  },
-
-  {
-    "question": "Why do we use embeddings in AI?",
-    "answer": "Embeddings convert text into numerical form so machines can understand semantic meaning.",
-    "contexts": ["Embeddings represent words as vectors capturing meaning."]
-  },
-  {
-    "question": "What is chunking in RAG?",
-    "answer": "Chunking is splitting large documents into smaller pieces for retrieval.",
-    "contexts": ["Large documents are split into smaller chunks for embeddings."]
-  },
-  {
-    "question": "What is top-k retrieval?",
-    "answer": "Top-k retrieval returns the most relevant k documents from a vector database.",
-    "contexts": ["Vector search returns top-k similar chunks."]
-  },
-  {
-    "question": "What is a large language model?",
-    "answer": "A large language model is an AI model trained on massive text data to generate human-like text.",
-    "contexts": ["LLMs are trained on large datasets of text."]
-  },
-  {
-    "question": "What is hallucination in LLMs?",
-    "answer": "Hallucination is when a model generates incorrect or made-up information.",
-    "contexts": ["LLMs sometimes generate facts not supported by data."]
-  },
-
-  {
-    "question": "What is Qdrant?",
-    "answer": "Qdrant is a vector database used for similarity search in AI applications.",
-    "contexts": ["Qdrant stores embeddings and supports fast search."]
-  },
-  {
-    "question": "What is FAISS?",
-    "answer": "FAISS is a library for efficient similarity search over vector embeddings.",
-    "contexts": ["FAISS is used for fast nearest neighbor search."]
-  },
-  {
-    "question": "What is retrieval in RAG?",
-    "answer": "Retrieval is the process of finding relevant documents before generating an answer.",
-    "contexts": ["RAG systems retrieve context before generation."]
-  },
-  {
-    "question": "What is generation in RAG?",
-    "answer": "Generation is the step where the LLM produces an answer using retrieved context.",
-    "contexts": ["LLM generates response using retrieved documents."]
-  },
-  {
-    "question": "What is prompt engineering?",
-    "answer": "Prompt engineering is designing inputs to guide LLM outputs effectively.",
-    "contexts": ["Good prompts improve LLM responses."]
-  },
-
-  {
-    "question": "Why is cosine similarity used in vector search?",
-    "answer": "It measures similarity between embeddings based on direction.",
-    "contexts": ["Used to compare semantic similarity of vectors."]
-  },
-  {
-    "question": "What is semantic search?",
-    "answer": "Semantic search finds results based on meaning instead of keywords.",
-    "contexts": ["Search based on meaning using embeddings."]
-  },
-  {
-    "question": "What is a knowledge base in RAG?",
-    "answer": "A knowledge base is a collection of documents used for retrieval.",
-    "contexts": ["RAG uses external documents as knowledge base."]
-  },
-  {
-    "question": "What is vector similarity?",
-    "answer": "Vector similarity measures how close two embeddings are in vector space.",
-    "contexts": ["Used in retrieval systems."]
-  },
-  {
-    "question": "What is cosine distance?",
-    "answer": "Cosine distance is 1 minus cosine similarity.",
-    "contexts": ["Used in vector comparison."]
-  },
-
-  {
-    "question": "What is tokenization?",
-    "answer": "Tokenization is breaking text into smaller units for processing.",
-    "contexts": ["LLMs process text as tokens."]
-  },
-  {
-    "question": "Why do we chunk documents in RAG?",
-    "answer": "We chunk documents to improve retrieval accuracy and fit model limits.",
-    "contexts": ["Large text is split for better embedding."]
-  },
-  {
-    "question": "What is latency in AI systems?",
-    "answer": "Latency is the time taken for a model to produce output.",
-    "contexts": ["Faster systems have lower latency."]
-  },
-  {
-    "question": "What is an API?",
-    "answer": "An API allows different software systems to communicate.",
-    "contexts": ["APIs connect frontend and backend systems."]
-  },
-  {
-    "question": "Why use FastAPI?",
-    "answer": "FastAPI is used to build fast and modern Python APIs.",
-    "contexts": ["FastAPI is lightweight and fast."]
-  },
-
-  {
-    "question": "What is async processing?",
-    "answer": "Async processing allows tasks to run in background without blocking execution.",
-    "contexts": ["Used for heavy AI workloads."]
-  },
-  {
-    "question": "What is a message queue?",
-    "answer": "A message queue is a system that stores tasks for asynchronous processing.",
-    "contexts": ["Used in distributed systems."]
-  },
-  {
-    "question": "What is Celery?",
-    "answer": "Celery is a Python framework for asynchronous task processing.",
-    "contexts": ["Used with Redis or RabbitMQ."]
-  },
-  {
-    "question": "What is Redis used for?",
-    "answer": "Redis is an in-memory database used for caching and message brokering.",
-    "contexts": ["Used in async task systems."]
-  },
-  {
-    "question": "What is caching?",
-    "answer": "Caching stores frequently used data for faster access.",
-    "contexts": ["Improves system performance."]
-  },
-
-  {
-    "question": "What is streaming in APIs?",
-    "answer": "Streaming sends data incrementally instead of waiting for full response.",
-    "contexts": ["Used in chat applications."]
-  },
-  {
-    "question": "What is WebSocket?",
-    "answer": "WebSocket is a protocol for real-time two-way communication.",
-    "contexts": ["Used for live chat systems."]
-  },
-  {
-    "question": "What is SSE?",
-    "answer": "Server-Sent Events allow servers to push updates to clients in real time.",
-    "contexts": ["Used for streaming responses."]
-  },
-  {
-    "question": "What is evaluation in AI?",
-    "answer": "Evaluation measures how good an AI system performs using metrics.",
-    "contexts": ["Used to test model quality."]
-  },
-  {
-    "question": "Why do we evaluate RAG systems?",
-    "answer": "To measure accuracy, relevance, and reliability of answers.",
-    "contexts": ["Ensures system quality."]
-  },
-
-  {
-    "question": "What is an LLM?",
-    "answer": "A large language model is trained on text to generate human-like responses.",
-    "contexts": ["GPT-style models are LLMs."]
-  },
-  {
-    "question": "What is a transformer model?",
-    "answer": "A transformer is a neural network architecture used in LLMs.",
-    "contexts": ["Used in modern NLP models."]
-  },
-  {
-    "question": "What is attention mechanism?",
-    "answer": "Attention helps models focus on important parts of input text.",
-    "contexts": ["Core part of transformers."]
-  },
-  {
-    "question": "What is indexing in vector DB?",
-    "answer": "Indexing organizes embeddings for fast similarity search.",
-    "contexts": ["Improves retrieval speed."]
-  },
-  {
-    "question": "What is HNSW?",
-    "answer": "HNSW is an algorithm for fast approximate nearest neighbor search.",
-    "contexts": ["Used in vector databases."]
-  },
-
-  {
-    "question": "What is approximate nearest neighbor search?",
-    "answer": "It finds similar vectors quickly without checking all data.",
-    "contexts": ["Used for scalable search."]
-  },
-  {
-    "question": "What is GPU in AI?",
-    "answer": "GPU is hardware used to accelerate AI computations.",
-    "contexts": ["Speeds up training and inference."]
-  },
-  {
-    "question": "What is fine-tuning?",
-    "answer": "Fine-tuning is training a pre-trained model on specific data.",
-    "contexts": ["Customizes LLM behavior."]
-  },
-  {
-    "question": "What is zero-shot learning?",
-    "answer": "Zero-shot learning is when a model performs tasks without specific training examples.",
-    "contexts": ["LLMs can generalize tasks."]
-  },
-  {
-    "question": "What is few-shot learning?",
-    "answer": "Few-shot learning is when a model learns from a few examples.",
-    "contexts": ["Used in prompt engineering."]
-  }
+    {
+        "question": "What is machine learning?",
+        "answer": "According to the context provided, Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed. It involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "Machine learning is a field of AI where systems learn from data instead of being explicitly programmed."
+    },
+    {
+        "question": "What is a vector database?",
+        "answer": "I don't know the answer. The provided context about machine learning does not mention \"vector database\". If you're looking for information on vector databases, I'd be happy to help you find it or provide some general guidance on how to search for the topic.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "A vector database stores embeddings and allows similarity search."
+    },
+    {
+        "question": "What is RAG?",
+        "answer": "I don't know what RAG refers to in the context of machine learning or artificial intelligence. The information provided does not mention RAG. If you could provide more context or clarify what RAG stands for, I'll do my best to help.",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "RAG stands for Retrieval Augmented Generation, combining retrieval and LLM generation."
+    },
+    {
+        "question": "What is cosine similarity?",
+        "answer": "I don't know the answer to this question. The provided context only discusses machine learning topics such as supervised, unsupervised, and reinforcement learning, but does not mention cosine similarity specifically. If you're looking for information on cosine similarity, I suggest searching online or consulting a resource that focuses on natural language processing or information retrieval.",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "Cosine similarity measures how similar two vectors are based on the angle between them."
+    },
+    {
+        "question": "What is an embedding?",
+        "answer": "In the context of Machine Learning, an embedding is a way to represent high-dimensional input data (such as text or images) in a lower-dimensional space where similar inputs are close together.\n\nEmbeddings are often used in Natural Language Processing (NLP) tasks like language modeling, sentiment analysis, and text classification. They allow machines to process and compare complex data structures like text documents by reducing them to a smaller set of vectors that capture their essential characteristics.\n\nIn NLP, word embeddings are a type of representation where each unique word is mapped to a dense vector in a high-dimensional space (typically between 100-1000 dimensions). These vectors are learned during the training process and aim to preserve semantic relationships between words. For example, the word \"king\" should be closer to the word \"man\" than it is to the word \"dog\", as they share similar meanings.\n\nEmbeddings can also be used for other types of data, such as images or audio signals. The idea is that by reducing the dimensionality of complex data structures, we can simplify and speed up computations while still capturing meaningful patterns and relationships.\n\nIn summary, an embedding in Machine Learning is a technique to compress high-dimensional input data into a lower-dimensional space where similar inputs are close together, which enables more efficient processing and comparison.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "An embedding is a numerical representation of text that captures its semantic meaning."
+    },
+    {
+        "question": "Why do we use embeddings in AI?",
+        "answer": "In machine learning, particularly in areas like natural language processing (NLP) and computer vision, embeddings are used to convert input data into a numerical representation that can be processed by machines.\n\nEmbeddings are typically used to:\n\n1. Reduce dimensionality: By transforming high-dimensional data into lower-dimensional vectors, embeddings help reduce the complexity of the data and improve the efficiency of calculations.\n2. Preserve semantic meaning: Embeddings aim to capture the semantic relationships between inputs, such as words or images, by placing similar data points close together in the vector space. This allows machines to understand the context and nuances of the input data.\n3. Enable efficient computations: With embeddings, machines can perform complex calculations and comparisons using vector arithmetic operations, which are often faster and more efficient than working with raw input data.\n\nSome common applications of embeddings include:\n\n* Word2Vec and GloVe for NLP tasks like language modeling, text classification, and sentiment analysis\n* Convolutional neural networks (CNNs) and recurrent neural networks (RNNs) in computer vision and speech recognition\n* Autoencoders and generative models for dimensionality reduction and anomaly detection\n\nBy leveraging embeddings, AI systems can better capture the underlying structure of complex data, leading to improved performance and more accurate predictions.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "Embeddings convert text into numerical vectors so machines can understand semantic relationships."
+    },
+    {
+        "question": "What is chunking in RAG?",
+        "answer": "I don't know the answer to this question. The provided context only discusses machine learning and its applications, but it doesn't mention a concept called \"chunking\" in a specific area like RAG (which I assume stands for Rough Approximation Graph). If you could provide more context or clarify what RAG is, I'd be happy to try and help further.",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "Chunking is the process of splitting large documents into smaller pieces before creating embeddings."
+    },
+    {
+        "question": "What is top-k retrieval?",
+        "answer": "I don't know what top-k retrieval is. The context provided does not mention it. However, I can try to search for the term or provide general information about machine learning or artificial intelligence if that would be helpful!",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "Top-k retrieval returns the k most relevant documents or chunks from the vector database."
+    },
+    {
+        "question": "What is a large language model?",
+        "answer": "A large language model is an artificial intelligence (AI) algorithm that uses machine learning to analyze and generate human-like text based on patterns learned from large datasets of text. These models are trained on vast amounts of data, such as books, articles, or online conversations, to learn how to predict the next word in a sequence given the context.\n\nLarge language models like BERT (Bidirectional Encoder Representations from Transformers) and transformer-based models have become popular in recent years due to their ability to perform tasks such as language translation, sentiment analysis, question answering, and text summarization.",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "A large language model is an AI model trained on massive text datasets to understand and generate human language."
+    },
+    {
+        "question": "What is hallucination in LLMs?",
+        "answer": "I don't know the answer to that question. The provided context only discusses Machine Learning (ML) in general and its common areas such as supervised learning, unsupervised learning, and reinforcement learning. It does not specifically mention LLMs or \"hallucination\" in this context. If you're referring to a specific type of hallucination in Large Language Models (LLMs), I'm not familiar with that term in this context. Can you please provide more information or clarify what you mean by \"hallucination in LLMs\"?",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "Hallucination occurs when an LLM generates information that is incorrect or not supported by evidence."
+    },
+    {
+        "question": "What is Qdrant?",
+        "answer": "I don't know the answer to that specific question. The provided context does not mention Qdrant. It seems to be discussing machine learning in general, but doesn't provide any information about a specific tool or technology called Qdrant. If you're looking for more information on Qdrant, I recommend searching online or checking its official website if it has one.",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "Qdrant is a vector database designed for storing embeddings and performing similarity search."
+    },
+    {
+        "question": "What is FAISS?",
+        "answer": "I don't know the answer to that specific question. However, based on my understanding of machine learning and its related concepts, I can suggest some possible ways to find the information you're looking for.\n\nFAISS (Facebook AI Similarity Search) is a library that allows you to efficiently search for similar items in large datasets using techniques such as indexing and quantization.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "FAISS is a library developed by Meta for efficient similarity search and clustering of dense vectors."
+    },
+    {
+        "question": "What is retrieval in RAG?",
+        "answer": "I don't know the answer to this question. The provided context does not mention Retrieval in RAG (Relevant And Good) or any similar term. It only discusses machine learning, artificial intelligence, supervised and unsupervised learning, reinforcement learning, programming languages, tools, and technologies. If you meant a different type of retrieval, please provide more context so I can better understand your question.",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "Retrieval is the process of finding relevant documents before the language model generates an answer."
+    },
+    {
+        "question": "What is generation in RAG?",
+        "answer": "I don't know the answer to that question. The context provided only talks about Machine Learning and doesn't mention RAG (which I assume stands for something). Therefore, I'm not familiar with the term \"generation\" in the context of RAG. If you could provide more information or clarify what RAG is, I'd be happy to help if possible!",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "Generation is the process where the language model produces an answer using the retrieved context."
+    },
+    {
+        "question": "What is prompt engineering?",
+        "answer": "I don't know the answer. The context does not mention \"prompt engineering\". It only discusses machine learning, its areas of focus, and some common applications and tools used in the field. If you could provide more information or clarify what you mean by \"prompt engineering\", I'd be happy to try and help further.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "Prompt engineering is the practice of designing prompts that guide language models to produce better responses."
+    },
+    {
+        "question": "What is semantic search?",
+        "answer": "I can help with that!\n\nSemantic search refers to a type of search technology that goes beyond traditional keyword-based searching by understanding the meaning and context of search queries. It uses natural language processing (NLP) and machine learning algorithms to analyze the intent behind a user's query, rather than just matching keywords.\n\nIn other words, semantic search attempts to understand what the user is trying to find or accomplish, rather than just providing a list of relevant results based on keyword matches. This can lead to more accurate and relevant results that better match the user's intended search query.\n\nSemantic search often involves techniques such as entity recognition, sentiment analysis, and topic modeling to extract meaning from text data. It's commonly used in applications like search engines, recommendation systems, and content management platforms.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "Semantic search finds information based on meaning rather than exact keyword matching."
+    },
+    {
+        "question": "What is a knowledge base in RAG?",
+        "answer": "I don't know the answer to that specific question. The provided context only talks about Machine Learning, which does not mention Knowledge Base or RAG (which stands for Requirement Analysis and Gathering).",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "A knowledge base is a collection of documents that the RAG system retrieves information from."
+    },
+    {
+        "question": "What is tokenization?",
+        "answer": "I know this one! Tokenization is a process in Natural Language Processing (NLP) that breaks down text into smaller units called tokens. These tokens can be individual words, phrases, or even subwords, depending on the specific purpose of the tokenization.\n\nIn machine learning and NLP, tokenization is often used as a preprocessing step for text data to prepare it for analysis, modeling, or processing. By breaking down text into its constituent parts, tokenization enables machines to better understand the meaning and structure of language, which is essential for tasks like sentiment analysis, text classification, and topic modeling.\n\nSo, in short, tokenization is a crucial step in preparing text data for machine learning models and NLP applications!",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "Tokenization is the process of splitting text into smaller units called tokens for processing by language models."
+    },
+    {
+        "question": "What is an API?",
+        "answer": "I can answer that!\n\nAn API (Application Programming Interface) is not directly related to machine learning, but it's a crucial component in building many ML solutions.\n\nIn simple terms, an API is a set of defined rules that enables different software systems to communicate with each other. It allows data to be shared and manipulated between applications, services, or platforms.\n\nThink of an API as a messenger that translates requests from one system into a language the other system can understand. This enables features like:\n\n1. Data exchange: APIs allow systems to share or send data to each other.\n2. Function invocation: APIs enable one system to invoke a function or action in another system.\n3. Integration: APIs facilitate integration between different systems, services, or platforms.\n\nIn machine learning, APIs can be used to access pre-trained models, integrate with external data sources, or expose the predictions made by ML models to other applications.",
+        "contexts": [
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience.",
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment."
+        ],
+        "reference": "An API is an interface that allows different software applications to communicate with each other."
+    },
+    {
+        "question": "Why use FastAPI?",
+        "answer": "I don't know the specific reasons why someone would choose to use FastAPI, but I can provide some general information about FastAPI and its benefits.\n\nFastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.7+ based on standard Python type hints. It's designed to be highly performant, flexible, and easy to learn.",
+        "contexts": [
+            "Common areas in machine learning include supervised learning, unsupervised learning, and reinforcement learning, which are used in applications such as prediction systems, recommendation engines, image recognition, and natural language processing.\n\nMachine learning solutions are typically built using programming languages like Python and supported by tools and technologies such as data processing libraries, cloud computing platforms, and containerization for scalable deployment.",
+            "Machine Learning is a field of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions without being explicitly programmed.\n\nIt involves developing algorithms that can analyze large datasets, identify patterns, and improve performance over time through experience."
+        ],
+        "reference": "FastAPI is used to build high-performance Python APIs with automatic validation and documentation."
+    }
 ]

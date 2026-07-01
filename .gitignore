@@ -8,6 +8,8 @@ venv/
 env/
 .venv/
 .env/
+rag-week3/
+simple/
 
 # IDEs
 .vscode/

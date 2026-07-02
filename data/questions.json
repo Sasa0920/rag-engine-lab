@@ -18,65 +18,6 @@
   {
     "question": "What is an embedding?",
     "reference": "An embedding is a numerical representation of text that captures its semantic meaning."
-  },
-  {
-    "question": "Why do we use embeddings in AI?",
-    "reference": "Embeddings convert text into numerical vectors so machines can understand semantic relationships."
-  },
-  {
-    "question": "What is chunking in RAG?",
-    "reference": "Chunking is the process of splitting large documents into smaller pieces before creating embeddings."
-  },
-  {
-    "question": "What is top-k retrieval?",
-    "reference": "Top-k retrieval returns the k most relevant documents or chunks from the vector database."
-  },
-  {
-    "question": "What is a large language model?",
-    "reference": "A large language model is an AI model trained on massive text datasets to understand and generate human language."
-  },
-  {
-    "question": "What is hallucination in LLMs?",
-    "reference": "Hallucination occurs when an LLM generates information that is incorrect or not supported by evidence."
-  },
-  {
-    "question": "What is Qdrant?",
-    "reference": "Qdrant is a vector database designed for storing embeddings and performing similarity search."
-  },
-  {
-    "question": "What is FAISS?",
-    "reference": "FAISS is a library developed by Meta for efficient similarity search and clustering of dense vectors."
-  },
-  {
-    "question": "What is retrieval in RAG?",
-    "reference": "Retrieval is the process of finding relevant documents before the language model generates an answer."
-  },
-  {
-    "question": "What is generation in RAG?",
-    "reference": "Generation is the process where the language model produces an answer using the retrieved context."
-  },
-  {
-    "question": "What is prompt engineering?",
-    "reference": "Prompt engineering is the practice of designing prompts that guide language models to produce better responses."
-  },
-  {
-    "question": "What is semantic search?",
-    "reference": "Semantic search finds information based on meaning rather than exact keyword matching."
-  },
-  {
-    "question": "What is a knowledge base in RAG?",
-    "reference": "A knowledge base is a collection of documents that the RAG system retrieves information from."
-  },
-  {
-    "question": "What is tokenization?",
-    "reference": "Tokenization is the process of splitting text into smaller units called tokens for processing by language models."
-  },
-  {
-    "question": "What is an API?",
-    "reference": "An API is an interface that allows different software applications to communicate with each other."
-  },
-  {
-    "question": "Why use FastAPI?",
-    "reference": "FastAPI is used to build high-performance Python APIs with automatic validation and documentation."
   }
+  
 ]

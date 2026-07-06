@@ -5,7 +5,7 @@ from src.rag.rag_service import rag_query
 
 print("Initializing RAG pipeline...")
 
-qa_chain = initialize_rag()
+qa_chain, _ = initialize_rag()
 
 print("Pipeline ready.")
 

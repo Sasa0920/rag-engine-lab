@@ -47,4 +47,9 @@ qdrant_storage/
 *.gguf
 models/
 
-data/eval_dataset.json
+# uploaded files
+uploads/
+
+# generated data
+data/
+database/

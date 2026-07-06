@@ -5,9 +5,19 @@ from src.rag.vectorstore import build_vectorstore
 from src.rag.retriever import create_retriever
 from src.rag.rag_service import build_rag_chain
 
+from pathlib import Path
+
 def initialize_rag():
 
-    documents = load_document("data/document.txt")
+    uploads_dir = Path("uploads")
+    documents = []
+    if uploads_dir.exists():
+        for file_path in uploads_dir.glob("*.pdf"):
+            documents.extend(load_document(str(file_path)))
+
+    if not documents:
+        documents = load_document("data/document.txt")
+
     docs = split_documents(documents)
 
     embeddings = get_embedding_model()
@@ -18,4 +28,4 @@ def initialize_rag():
 
     qa_chain = build_rag_chain(retriever)
 
-    return qa_chain
+    return qa_chain, docs

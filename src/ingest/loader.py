@@ -1,5 +1,4 @@
 from langchain_core.documents import Document
-
 from pathlib import Path
 from pypdf import PdfReader
 

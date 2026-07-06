@@ -1,7 +1,12 @@
 from pathlib import Path
 import shutil
 from typing import List
+# pyrefly: ignore [missing-import]
+import sqlite3
+from datetime import datetime
+# pyrefly: ignore [missing-import]
 from fastapi import FastAPI, UploadFile, File, HTTPException
+# pyrefly: ignore [missing-import]
 from fastapi.openapi.utils import get_openapi
 from tasks import process_pdf_task
 from src.rag.pipeline import initialize_rag
@@ -15,6 +20,32 @@ app = FastAPI(
 
 UPLOAD_FOLDER = Path("uploads")
 UPLOAD_FOLDER.mkdir(exist_ok=True)
+
+# Database configuration
+DB_PATH = Path("database/documents.db")
+DB_PATH.parent.mkdir(exist_ok=True)
+
+def get_db_connection():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def init_db():
+    conn = get_db_connection()
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS documents (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            filename TEXT NOT NULL,
+            status TEXT NOT NULL,
+            summary TEXT,
+            uploaded_at TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Initialize DB on startup
+init_db()
 
 # Safe initialization of RAG pipeline to prevent startup crash if Ollama is not running
 qa_chain = None
@@ -78,6 +109,14 @@ async def upload_files(
             shutil.copyfileobj(file.file, buffer)
 
         saved_files.append(str(destination))
+        # Insert record into DB with status Pending
+        conn = get_db_connection()
+        conn.execute(
+            "INSERT INTO documents (filename, status, uploaded_at) VALUES (?, ?, ?)",
+            (file.filename, "Pending", datetime.utcnow().isoformat())
+        )
+        conn.commit()
+        conn.close()
 
     if not saved_files:
         raise HTTPException(status_code=400, detail="No valid PDF files uploaded")

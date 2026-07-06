@@ -1,27 +1,42 @@
 import time
-
 from celery_app import celery_app
+from database import update_status
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @celery_app.task
-def hello_task():
 
-    print("Task started...")
+def process_pdf_task(
+    document_id,
+    file_path
+):
 
-    time.sleep(10)
-
-    print("Task completed!")
-
-    return "Finished Successfully"
-
-
-@celery_app.task
-def process_pdf_task(file_paths):
-
-    print(f"Task started: processing PDFs {file_paths}...")
+    print()
+    print("=" * 50)
+    logger.info("Worker started")
+    print(file_path)
+    print("=" * 50)
+    update_status(
+        document_id,
+        "Processing"
+    )
 
     time.sleep(5)
+    update_status(
+        document_id,
+        "Completed"
+    )
 
-    print(f"Task completed: processed PDFs {file_paths}!")
+    print()
+    print("=" * 50)
+    logger.info("Worker finished")
+    print(file_path)
+    print("=" * 50)
+    return {
 
-    return f"Processed {len(file_paths)} PDFs successfully"
+        "document_id": document_id,
+        "status": "Completed"
+
+    }

@@ -3,7 +3,7 @@ import shutil
 from typing import List
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.openapi.utils import get_openapi
-from database import init_db, add_document
+from database import init_db, add_document, get_document
 from tasks import process_pdf_task
 from src.rag.pipeline import initialize_rag
 from src.rag.rag_service import rag_query
@@ -14,21 +14,18 @@ app = FastAPI(
     docs_url="/docs"
 )
 
-UPLOAD_FOLDER = Path("uploads")
+UPLOAD_FOLDER = Path(__file__).parent / "uploads"
 UPLOAD_FOLDER.mkdir(exist_ok=True)
 
-# Initialize database
 init_db()
-# Initialize RAG pipeline
 qa_chain = None
 
 try:
     qa_chain, _ = initialize_rag()
     print("RAG pipeline initialized successfully.")
-
 except Exception as e:
-    print(f"Warning: RAG initialization failed: {e}")
-    print("The /query endpoint will not work until Ollama is running.")
+    print(f"RAG initialization failed: {e}")
+    print("The /query endpoint will not work until Ollama/Qdrant is running.")
 
 def custom_openapi():
 
@@ -49,6 +46,8 @@ def custom_openapi():
             continue
 
         for prop in component["properties"].values():
+
+            # Fix file upload (Swagger binary issue)
             if prop.get("contentMediaType") == "application/octet-stream":
                 prop["format"] = "binary"
                 prop.pop("contentMediaType", None)
@@ -58,57 +57,53 @@ def custom_openapi():
                 if items.get("contentMediaType") == "application/octet-stream":
                     items["format"] = "binary"
                     items.pop("contentMediaType", None)
-    app.openapi_schema = openapi_schema
 
+    app.openapi_schema = openapi_schema
     return app.openapi_schema
+
+
 app.openapi = custom_openapi
 
 @app.get("/")
 def home():
-
     return {
-        "message": "DocuMind AI Backend Running"
+        "message": "DocuMind AI Backend Running 🚀"
     }
 
 @app.post("/upload")
-async def upload_files(
-    files: List[UploadFile] = File(...)
-):
+async def upload_files(files: List[UploadFile] = File(...)):
 
     tasks = []
 
     for file in files:
+
         if not file.filename.lower().endswith(".pdf"):
             continue
-        destination = UPLOAD_FOLDER / file.filename
-        with destination.open("wb") as buffer:
+
+        file_path = UPLOAD_FOLDER / file.filename
+
+        with file_path.open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        # Save document metadata in SQLite
-        document_id = add_document(file.filename)
+        # 1. Save metadata in SQLite
+        doc_id = add_document(file.filename)
 
-        # Send task to RabbitMQ
-        task = process_pdf_task.delay(
-            document_id,
-            str(destination)
-        )
+        # 2. Send to Celery worker
+        task = process_pdf_task.delay(doc_id, str(file_path))
 
-        tasks.append(
-            {
-                "document_id": document_id,
-                "task_id": task.id,
-                "filename": file.filename
-            }
-        )
+        tasks.append({
+            "document_id": doc_id,
+            "task_id": task.id,
+            "filename": file.filename
+        })
 
-    if len(tasks) == 0:
+    if not tasks:
         raise HTTPException(
             status_code=400,
             detail="No valid PDF files uploaded."
         )
 
     return {
-
         "message": "Upload successful",
         "tasks": tasks
     }
@@ -119,14 +114,22 @@ def query(q: str):
     if qa_chain is None:
         raise HTTPException(
             status_code=503,
-            detail="RAG system is not initialized. Please ensure Ollama is running."
+            detail="RAG system is not initialized. Ensure Ollama is running."
         )
 
-    answer = rag_query(
-        qa_chain,
-        q
-    )
+    result = rag_query(qa_chain, q)
 
-    return {
-        "answer": answer
-    }
+    return result
+
+@app.get("/document/{doc_id}")
+def get_doc(doc_id: int):
+
+    doc = get_document(doc_id)
+
+    if not doc:
+        raise HTTPException(
+            status_code=404,
+            detail="Document not found"
+        )
+
+    return doc

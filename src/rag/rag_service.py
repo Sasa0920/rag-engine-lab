@@ -1,10 +1,9 @@
-from langchain_ollama import ChatOllama
-from langchain_classic.chains.retrieval_qa.base import RetrievalQA
+from langchain.chains import RetrievalQA
+from src.rag.ollama_compat import get_chat_ollama
 
 
 def build_rag_chain(retriever):
-
-    llm = ChatOllama(
+    llm = get_chat_ollama(
         model="llama3"
     )
 
@@ -15,15 +14,11 @@ def build_rag_chain(retriever):
     )
 
 
-def rag_query(qa_chain, question):
-
-    result = qa_chain.invoke(
-        {"query": question}
-    )
+def rag_query(qa_chain, question: str):
+    result = qa_chain.invoke({"query": question})
 
     contexts = [
-        doc.page_content
-        for doc in result["source_documents"]
+        doc.page_content for doc in result["source_documents"]
     ]
 
     return {

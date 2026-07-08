@@ -10,7 +10,7 @@ from ragas.metrics import (
     context_precision
 )
 
-from langchain_ollama import ChatOllama, OllamaEmbeddings
+from src.rag.ollama_compat import get_chat_ollama, get_ollama_embeddings
 
 
 def load_data(path="data/eval_dataset.json"):
@@ -33,14 +33,14 @@ def run_evaluation():
     })
 
     #LLM judge (must be stable + deterministic)
-    evaluator_llm = ChatOllama(
+    evaluator_llm = get_chat_ollama(
         model="llama3",
         temperature=0,
         num_predict=256
     )
 
     #Embeddings model (used internally by RAGAS)
-    evaluator_embeddings = OllamaEmbeddings(
+    evaluator_embeddings = get_ollama_embeddings(
         model="nomic-embed-text"
     )
 

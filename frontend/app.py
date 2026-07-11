@@ -5,6 +5,7 @@ from api import (
     upload_pdf,
     ask_question,
     stream_answer,
+    list_documents,
     get_document,
     check_backend,
 )
@@ -19,8 +20,8 @@ st.set_page_config(
     layout="wide"
 )
 
-if "document_id" not in st.session_state:
-    st.session_state.document_id = None
+if "selected_document_id" not in st.session_state:
+    st.session_state.selected_document_id = None
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -53,27 +54,61 @@ with st.sidebar:
                 result = upload_pdf(uploaded_file)
 
             st.success(result["message"])
-            st.session_state.document_id = result["tasks"][0]["document_id"]
+            st.session_state.selected_document_id = result["tasks"][0]["document_id"]
             st.rerun()
 
     st.divider()
 
-    st.header("📑 Document Status")
+    st.header("📑 Documents")
 
-    if st.session_state.document_id:
-        document = get_document(
-            st.session_state.document_id
+    documents = list_documents()
+
+    if documents:
+        options = ["All documents"] + [doc["filename"] for doc in documents]
+        current_index = 0
+        if st.session_state.selected_document_id is not None:
+            for index, doc in enumerate(documents, start=1):
+                if doc["id"] == st.session_state.selected_document_id:
+                    current_index = index
+                    break
+
+        selected_label = st.selectbox(
+            "Current Document",
+            options=options,
+            index=current_index,
+            key="document_selector"
         )
 
-        document_card(document)
+        if selected_label == "All documents":
+            st.session_state.selected_document_id = None
+        else:
+            selected_doc = next(doc for doc in documents if doc["filename"] == selected_label)
+            st.session_state.selected_document_id = selected_doc["id"]
 
-        # Auto refresh while Celery is processing
-        if document["status"] == "Processing":
-            st.info(
-                "⏳ Processing document...\n\nRefreshing every 3 seconds."
+        for doc in documents:
+            if doc["id"] == st.session_state.selected_document_id:
+                st.info(f"🔎 Active: {doc['filename']}")
+                break
+
+        selected_document = None
+        if st.session_state.selected_document_id is not None:
+            selected_document = next(
+                (doc for doc in documents if doc["id"] == st.session_state.selected_document_id),
+                None
             )
-            time.sleep(3)
-            st.rerun()
+
+        if selected_document:
+            document_card(selected_document)
+
+            # Auto refresh while Celery is processing
+            if selected_document["status"] == "Processing":
+                st.info(
+                    "⏳ Processing document...\n\nRefreshing every 3 seconds."
+                )
+                time.sleep(3)
+                st.rerun()
+    else:
+        st.info("No documents uploaded yet.")
 
 st.subheader("💬 AI Assistant")
 
@@ -107,7 +142,10 @@ if prompt:
         # True token streaming
         chunks = []
 
-        for chunk in stream_answer(prompt):
+        for chunk in stream_answer(
+            prompt,
+            document_id=st.session_state.selected_document_id
+        ):
 
             chunks.append(chunk)
 

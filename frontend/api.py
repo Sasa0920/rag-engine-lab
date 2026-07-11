@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 import requests
 import json
-import requests
 
 WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
 BACKEND_URL_FILE = WORKSPACE_ROOT / ".backend_url"
@@ -39,13 +38,18 @@ def upload_pdf(file):
 
     return response.json()
 
-def ask_question(question: str):
+def ask_question(question: str, document_id: int | None = None):
  
+    params = {
+        "q": question
+    }
+
+    if document_id is not None:
+        params["document_id"] = document_id
+
     response = requests.get(
         f"{BASE_URL}/query",
-        params={
-            "q": question
-        }
+        params=params
     )
 
     response.raise_for_status()
@@ -53,28 +57,29 @@ def ask_question(question: str):
     return response.json()
 
 
-def stream_answer(question: str):
+def stream_answer(question: str, document_id: int | None = None):
 
-    with requests.get(
-        f"{BASE_URL}/query/stream",
-        params={"q": question},
-        stream=True,
-    ) as response:
+    try:
+        fallback = ask_question(question, document_id=document_id)
+        answer = fallback.get("answer", "")
+    except Exception:
+        answer = "I couldn't generate a response right now."
 
-        response.raise_for_status()
+    if answer:
+        yield answer
+    else:
+        yield "I couldn't generate a response right now."
 
-        for line in response.iter_lines(decode_unicode=True):
 
-            if not line:
-                continue
+def list_documents():
 
-            if line.startswith("data:"):
+    response = requests.get(
+        f"{BASE_URL}/documents"
+    )
 
-                payload = line[5:].strip()
+    response.raise_for_status()
 
-                data = json.loads(payload)
-
-                yield data["token"]
+    return response.json()["documents"]
 
 
 def get_document(document_id: int):

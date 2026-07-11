@@ -97,3 +97,37 @@ def get_document(doc_id: int):
         "summary": row[3],
         "uploaded_at": row[4],
     }
+
+
+def list_documents():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, filename, status, summary, uploaded_at
+        FROM documents
+        ORDER BY uploaded_at ASC
+    """)
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    return [
+        {
+            "id": row[0],
+            "filename": row[1],
+            "status": row[2],
+            "summary": row[3],
+            "uploaded_at": row[4],
+        }
+        for row in rows
+    ]
+
+
+def clear_database():
+    """Delete all rows from the documents table. Useful for resetting the DB during testing."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM documents")
+    conn.commit()
+    conn.close()

@@ -5,7 +5,7 @@ from typing import List
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import StreamingResponse
-from database import init_db, add_document, get_document
+from database import init_db, add_document, get_document, list_documents, clear_database
 from tasks import process_pdf_task
 from src.rag.pipeline import initialize_rag
 from src.rag.rag_service import rag_query, rag_query_stream
@@ -20,10 +20,9 @@ UPLOAD_FOLDER = Path(__file__).parent / "uploads"
 UPLOAD_FOLDER.mkdir(exist_ok=True)
 
 init_db()
-qa_chain = None
 
 try:
-    qa_chain, _ = initialize_rag()
+    initialize_rag()
     print("RAG pipeline initialized successfully.")
 except Exception as e:
     print(f"RAG initialization failed: {e}")
@@ -111,31 +110,55 @@ async def upload_files(files: List[UploadFile] = File(...)):
     }
 
 @app.get("/query")
-def query(q: str):
-
-    if qa_chain is None:
+def query(q: str, document_id: int | None = None):
+    try:
+        qa_chain, _ = initialize_rag(document_id=document_id)
+    except Exception as exc:
         raise HTTPException(
             status_code=503,
-            detail="RAG system is not initialized. Ensure Ollama is running."
-        )
+            detail=f"RAG system is not initialized. Ensure Ollama is running. Details: {exc}"
+        ) from exc
 
-    result = rag_query(qa_chain, q)
+    result = rag_query(qa_chain, q, document_id=document_id)
 
     return result
 
 @app.get("/query/stream")
-def query_stream(q: str):
-    if qa_chain is None:
+def query_stream(q: str, document_id: int | None = None):
+    try:
+        qa_chain, _ = initialize_rag(document_id=document_id)
+    except Exception as exc:
         raise HTTPException(
             status_code=503,
-            detail="RAG system is not initialized. Ensure Ollama is running."
-        )
+            detail=f"RAG system is not initialized. Ensure Ollama is running. Details: {exc}"
+        ) from exc
 
     def event_stream():
-        for word in rag_query_stream(qa_chain, q):
+        for word in rag_query_stream(qa_chain, q, document_id=document_id):
             yield f"data: {json.dumps({'token': word})}\n\n"
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+@app.post("/reset-db")
+def reset_db():
+    """Delete all rows from the documents table and remove uploaded files."""
+    clear_database()
+
+    for file_path in UPLOAD_FOLDER.glob("*.pdf"):
+        try:
+            file_path.unlink()
+        except Exception:
+            pass
+
+    return {"message": "Database cleared and uploads removed"}
+
+
+@app.get("/documents")
+def documents():
+    return {
+        "documents": list_documents()
+    }
+
 
 @app.get("/document/{doc_id}")
 def get_doc(doc_id: int):

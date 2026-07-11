@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 from celery_app import celery_app
 from database import update_status, save_summary
 from src.ingest.loader import load_document
@@ -53,6 +54,11 @@ def process_pdf_task(document_id, file_path):
 
         # 1. Load
         docs = load_document(file_path)
+        for doc in docs:
+            metadata = dict(doc.metadata or {})
+            metadata["document_id"] = document_id
+            metadata["filename"] = Path(file_path).name
+            doc.metadata = metadata
         # 2. Chunk
         chunks = split_documents(docs)
         # 3. Embeddings

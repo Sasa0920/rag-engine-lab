@@ -1,6 +1,24 @@
+import os
+from pathlib import Path
+import requests
+import json
 import requests
 
-BASE_URL = "http://127.0.0.1:8000"
+WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
+BACKEND_URL_FILE = WORKSPACE_ROOT / ".backend_url"
+
+
+def resolve_backend_url():
+    if os.getenv("BACKEND_URL"):
+        return os.getenv("BACKEND_URL")
+
+    if BACKEND_URL_FILE.exists():
+        return BACKEND_URL_FILE.read_text(encoding="utf-8").strip()
+
+    return "http://127.0.0.1:8000"
+
+
+BASE_URL = resolve_backend_url()
 
 def upload_pdf(file):
  
@@ -33,6 +51,31 @@ def ask_question(question: str):
     response.raise_for_status()
 
     return response.json()
+
+
+def stream_answer(question: str):
+
+    with requests.get(
+        f"{BASE_URL}/query/stream",
+        params={"q": question},
+        stream=True,
+    ) as response:
+
+        response.raise_for_status()
+
+        for line in response.iter_lines(decode_unicode=True):
+
+            if not line:
+                continue
+
+            if line.startswith("data:"):
+
+                payload = line[5:].strip()
+
+                data = json.loads(payload)
+
+                yield data["token"]
+
 
 def get_document(document_id: int):
    

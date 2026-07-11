@@ -4,6 +4,7 @@ import streamlit as st
 from api import (
     upload_pdf,
     ask_question,
+    stream_answer,
     get_document,
     check_backend,
 )
@@ -40,6 +41,7 @@ with st.sidebar:
         "Choose a PDF",
         type=["pdf"]
     )
+
     if st.button(
         "Upload PDF",
         use_container_width=True
@@ -49,16 +51,20 @@ with st.sidebar:
         else:
             with st.spinner("Uploading PDF..."):
                 result = upload_pdf(uploaded_file)
+
             st.success(result["message"])
-            st.session_state.document_id = \
-                result["tasks"][0]["document_id"]
+            st.session_state.document_id = result["tasks"][0]["document_id"]
             st.rerun()
+
     st.divider()
+
     st.header("📑 Document Status")
+
     if st.session_state.document_id:
         document = get_document(
             st.session_state.document_id
         )
+
         document_card(document)
 
         # Auto refresh while Celery is processing
@@ -88,20 +94,34 @@ if prompt:
             "content": prompt
         }
     )
-    with st.chat_message("user"):
 
+    with st.chat_message("user"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        placeholder = st.empty()
-        with st.spinner("🤖 AI is thinking..."):
-            result = ask_question(prompt)
-        placeholder.markdown(
-            result["answer"]
-        )
+        status_placeholder = st.empty()
+        content_placeholder = st.empty()
+
+        status_placeholder.info("🤖 Generating answer...")
+
+        # True token streaming
+        chunks = []
+
+        for chunk in stream_answer(prompt):
+
+            chunks.append(chunk)
+
+            answer = "".join(chunks)
+
+            content_placeholder.markdown(answer + "▌")
+
+        full_answer = "".join(chunks)
+
+        content_placeholder.markdown(full_answer)
+
     st.session_state.messages.append(
         {
             "role": "assistant",
-            "content": result["answer"]
+            "content": full_answer
         }
     )

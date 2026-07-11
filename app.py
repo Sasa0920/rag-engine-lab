@@ -1,12 +1,14 @@
+import json
 from pathlib import Path
 import shutil
 from typing import List
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.openapi.utils import get_openapi
+from fastapi.responses import StreamingResponse
 from database import init_db, add_document, get_document
 from tasks import process_pdf_task
 from src.rag.pipeline import initialize_rag
-from src.rag.rag_service import rag_query
+from src.rag.rag_service import rag_query, rag_query_stream
 
 app = FastAPI(
     title="DocuMind AI",
@@ -120,6 +122,20 @@ def query(q: str):
     result = rag_query(qa_chain, q)
 
     return result
+
+@app.get("/query/stream")
+def query_stream(q: str):
+    if qa_chain is None:
+        raise HTTPException(
+            status_code=503,
+            detail="RAG system is not initialized. Ensure Ollama is running."
+        )
+
+    def event_stream():
+        for word in rag_query_stream(qa_chain, q):
+            yield f"data: {json.dumps({'token': word})}\n\n"
+
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
 
 @app.get("/document/{doc_id}")
 def get_doc(doc_id: int):

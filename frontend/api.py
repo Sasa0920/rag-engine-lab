@@ -59,6 +59,49 @@ def ask_question(question: str, document_id: int | None = None):
 
 def stream_answer(question: str, document_id: int | None = None):
 
+    params = {
+        "q": question
+    }
+
+    if document_id is not None:
+        params["document_id"] = document_id
+
+    try:
+        with requests.get(
+            f"{BASE_URL}/query/stream",
+            params=params,
+            stream=True,
+            timeout=60,
+        ) as response:
+            response.raise_for_status()
+
+            event_data = ""
+
+            for raw_line in response.iter_lines(decode_unicode=True):
+                if raw_line is None:
+                    continue
+
+                line = raw_line.strip()
+
+                if not line:
+                    if event_data:
+                        try:
+                            data = json.loads(event_data)
+                            token = data.get("token")
+                            if token is not None:
+                                yield token
+                        except json.JSONDecodeError:
+                            pass
+                        event_data = ""
+                    continue
+
+                if line.startswith("data:"):
+                    event_data = line[len("data:"):].strip()
+
+            return
+    except requests.exceptions.RequestException:
+        pass
+
     try:
         fallback = ask_question(question, document_id=document_id)
         answer = fallback.get("answer", "")

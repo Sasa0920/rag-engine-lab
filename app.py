@@ -18,9 +18,8 @@ from database import (
 from tasks import process_pdf_task
 
 from src.rag.pipeline import initialize_rag
-from src.rag.rag_service import rag_query_stream
 
-from src.agent.agent import run_agent
+from src.agent.agent import run_agent, run_agent_stream
 
 app = FastAPI(
     title="DocuMind AI",
@@ -193,10 +192,10 @@ def query_stream(
 
     def event_stream():
 
-        for token in rag_query_stream(
-            qa_chain,
-            q,
-            document_id=document_id
+        for token in run_agent_stream(
+            question=q,
+            qa_chain=qa_chain,
+            summary=(get_document(document_id) or {}).get("summary")
         ):
 
             yield (
